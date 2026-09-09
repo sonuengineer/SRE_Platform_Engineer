@@ -22,6 +22,7 @@ import {
   ClipboardCheck,
   Swords,
   Settings,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -70,11 +71,11 @@ const GROUPS: NavGroup[] = [
   },
 ];
 
-export function Sidebar() {
+function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   return (
-    <aside className="hidden md:flex w-60 shrink-0 flex-col border-r border-border bg-bg-soft">
-      <Link href="/" className="flex items-center gap-2.5 px-5 h-14 border-b border-border">
+    <>
+      <Link href="/" onClick={onNavigate} className="flex items-center gap-2.5 px-5 h-14 border-b border-border">
         <div className="flex h-7 w-7 items-center justify-center rounded-md bg-accent/15 border border-accent/30">
           <FlaskConical className="h-4 w-4 text-accent" />
         </div>
@@ -99,6 +100,7 @@ export function Sidebar() {
                   <Link
                     key={item.href}
                     href={item.href}
+                    onClick={onNavigate}
                     className={cn(
                       "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors",
                       active
@@ -121,6 +123,45 @@ export function Sidebar() {
           <span className="h-1.5 w-1.5 rounded-full bg-good" /> Local-first. Progress saved in your browser.
         </span>
       </div>
+    </>
+  );
+}
+
+/** Desktop static rail. */
+export function Sidebar() {
+  return (
+    <aside className="hidden md:flex w-60 shrink-0 flex-col border-r border-border bg-bg-soft">
+      <SidebarContent />
     </aside>
+  );
+}
+
+/** Mobile slide-in drawer. */
+export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
+  // Close on Escape.
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 md:hidden">
+      <div className="absolute inset-0 bg-black/60 animate-fade-in" onClick={onClose} />
+      <aside className="absolute left-0 top-0 flex h-full w-64 flex-col border-r border-border bg-bg-soft shadow-2xl">
+        <button
+          onClick={onClose}
+          className="absolute right-2 top-3 z-10 rounded-md p-1.5 text-fg-faint hover:bg-bg-hover hover:text-fg"
+          aria-label="Close navigation"
+        >
+          <X className="h-4 w-4" />
+        </button>
+        <SidebarContent onNavigate={onClose} />
+      </aside>
+    </div>
   );
 }

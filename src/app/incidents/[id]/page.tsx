@@ -324,7 +324,7 @@ export default function IncidentDetailPage() {
 function PanelTile({ panel }: { panel: Panel }) {
   const color = statusColor[panel.status];
   return (
-    <div className="rounded-xl border border-border bg-bg-card p-3">
+    <div className="overflow-hidden rounded-xl border border-border bg-bg-card p-3">
       <div className="text-[11px] text-fg-faint">{panel.label}</div>
       <div className="mt-0.5 flex items-baseline gap-1">
         <span className="text-xl font-semibold" style={{ color }}>

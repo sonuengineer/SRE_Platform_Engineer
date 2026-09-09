@@ -1,11 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Search, Flame, Zap, Sun, Moon } from "lucide-react";
+import { Search, Flame, Zap, Sun, Moon, Menu } from "lucide-react";
 import { useStore, levelFromXp } from "@/lib/store";
 import { useHydrated } from "@/components/hydrated";
 
-export function Topbar({ onOpenPalette }: { onOpenPalette: () => void }) {
+export function Topbar({
+  onOpenPalette,
+  onOpenNav,
+}: {
+  onOpenPalette: () => void;
+  onOpenNav: () => void;
+}) {
   const xp = useStore((s) => s.xp);
   const streak = useStore((s) => s.streak.current);
   const theme = useStore((s) => s.theme);
@@ -14,14 +20,21 @@ export function Topbar({ onOpenPalette }: { onOpenPalette: () => void }) {
   const lvl = levelFromXp(xp);
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-bg-soft/80 px-4 backdrop-blur">
+    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-border bg-bg-soft/80 px-3 backdrop-blur md:gap-3 md:px-4">
+      <button
+        onClick={onOpenNav}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-bg-card text-fg-muted transition-colors hover:text-fg md:hidden"
+        aria-label="Open navigation"
+      >
+        <Menu className="h-4 w-4" />
+      </button>
       <button
         onClick={onOpenPalette}
         className="flex h-9 flex-1 max-w-md items-center gap-2 rounded-lg border border-border bg-bg-card px-3 text-sm text-fg-faint transition-colors hover:border-accent/40 hover:text-fg-muted"
       >
         <Search className="h-4 w-4" />
-        <span>Search everything...</span>
-        <kbd className="ml-auto rounded border border-border px-1.5 py-0.5 text-[10px]">Ctrl K</kbd>
+        <span className="truncate">Search...</span>
+        <kbd className="ml-auto hidden rounded border border-border px-1.5 py-0.5 text-[10px] sm:block">Ctrl K</kbd>
       </button>
 
       <div className="ml-auto flex items-center gap-2">

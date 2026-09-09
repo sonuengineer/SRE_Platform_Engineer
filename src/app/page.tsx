@@ -137,13 +137,15 @@ export default function DashboardPage() {
           </div>
           <CardBody className="space-y-2.5">
             {topSkills.map((s) => (
-              <div key={s.id} className="flex items-center gap-3">
-                <div className="w-40 shrink-0 text-sm text-fg-muted truncate">{s.label}</div>
-                <BlockBar value={hydrated ? s.pct : 0} color={s.color} />
-                <div className="ml-auto w-16 text-right text-xs tabular-nums text-fg-faint">
+              <div key={s.id} className="flex items-center gap-2 sm:gap-3">
+                <div className="w-24 shrink-0 truncate text-sm text-fg-muted sm:w-40">{s.label}</div>
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <BlockBar value={hydrated ? s.pct : 0} color={s.color} />
+                </div>
+                <div className="w-10 shrink-0 text-right text-xs tabular-nums text-fg-faint sm:w-14">
                   {hydrated ? `${s.pct.toFixed(0)}%` : "0%"}
                 </div>
-                <div className="w-12 text-right text-[11px] tabular-nums text-fg-faint">
+                <div className="hidden w-12 text-right text-[11px] tabular-nums text-fg-faint sm:block">
                   {s.completed}/{s.total}
                 </div>
               </div>
