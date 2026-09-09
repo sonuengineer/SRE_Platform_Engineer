@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --c-bg: 10 11 15;
+  --c-bg-soft: 15 17 23;
+  --c-bg-card: 18 20 28;
+  --c-bg-hover: 23 26 36;
+  --c-border: 30 34 48;
+  --c-border-soft: 23 26 36;
+  --c-fg: 230 232 238;
+  --c-fg-muted: 154 161 177;
+  --c-fg-faint: 107 113 128;
+  --c-accent: 110 168 254;
+  --c-accent-soft: 42 59 94;
+  --c-good: 63 185 80;
+  --c-warn: 210 153 34;
+  --c-bad: 248 81 73;
+  --c-info: 88 166 255;
+}
+
+html.light {
+  color-scheme: light;
+  --c-bg: 247 248 250;
+  --c-bg-soft: 255 255 255;
+  --c-bg-card: 255 255 255;
+  --c-bg-hover: 237 240 245;
+  --c-border: 223 227 234;
+  --c-border-soft: 233 236 241;
+  --c-fg: 24 27 34;
+  --c-fg-muted: 82 90 104;
+  --c-fg-faint: 120 128 141;
+  --c-accent: 37 99 235;
+  --c-accent-soft: 191 210 245;
+  --c-good: 22 138 62;
+  --c-warn: 176 122 12;
+  --c-bad: 208 48 42;
+  --c-info: 37 99 235;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-bg text-fg antialiased;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2f3d transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #232838;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #313850;
+  background-clip: content-box;
+}
+
+/* Selection */
+::selection {
+  background: rgba(110, 168, 254, 0.25);
+}
+
+/* Prose styling for rendered markdown lesson content */
+.prose-lab {
+  @apply text-fg leading-relaxed;
+}
+.prose-lab h1 {
+  @apply text-2xl font-semibold mt-8 mb-3 text-fg;
+}
+.prose-lab h2 {
+  @apply text-xl font-semibold mt-7 mb-3 text-fg;
+}
+.prose-lab h3 {
+  @apply text-lg font-semibold mt-5 mb-2 text-fg;
+}
+.prose-lab p {
+  @apply my-3 text-fg/90;
+}
+.prose-lab ul {
+  @apply my-3 list-disc pl-6 space-y-1.5 text-fg/90;
+}
+.prose-lab ol {
+  @apply my-3 list-decimal pl-6 space-y-1.5 text-fg/90;
+}
+.prose-lab li {
+  @apply marker:text-fg-faint;
+}
+.prose-lab a {
+  @apply text-accent underline underline-offset-2 hover:text-info;
+}
+.prose-lab strong {
+  @apply text-fg font-semibold;
+}
+.prose-lab blockquote {
+  @apply border-l-2 border-accent/50 pl-4 my-4 text-fg-muted italic;
+}
+.prose-lab code {
+  @apply font-mono text-[0.85em] bg-bg-hover text-accent px-1.5 py-0.5 rounded border border-border/60;
+}
+.prose-lab pre {
+  @apply bg-[#0b0d13] border border-border rounded-lg p-4 my-4 overflow-x-auto text-sm;
+}
+.prose-lab pre code {
+  @apply bg-transparent border-0 p-0 text-fg/90 text-[0.85rem];
+}
+.prose-lab table {
+  @apply w-full my-4 border-collapse text-sm;
+}
+.prose-lab th {
+  @apply text-left font-semibold border-b border-border px-3 py-2 text-fg;
+}
+.prose-lab td {
+  @apply border-b border-border/60 px-3 py-2 text-fg/90 align-top;
+}
+.prose-lab hr {
+  @apply border-border my-6;
+}
+
+/* User text highlights on lessons */
+.user-hl {
+  background: rgba(110, 168, 254, 0.28);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+  cursor: pointer;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background 0.12s ease;
+}
+.user-hl:hover {
+  background: rgba(248, 81, 73, 0.38);
+}
+
+/* Utility for grid backgrounds */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
